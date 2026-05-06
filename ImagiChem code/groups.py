@@ -6,8 +6,8 @@ def ester_graph(start_id=0):
     g.add_atom(start_id, "C")
     g.add_atom(start_id + 1, "O")
     g.add_atom(start_id + 2, "O")
-    g.add_bond(start_id, start_id + 1, order=2)
-    g.add_bond(start_id, start_id + 2, order=1)
+    g.add_bond(start_id, start_id + 1, order=2)  # C=O
+    g.add_bond(start_id, start_id + 2, order=1)  # C-O
     return g
 
 def amide_graph(start_id=0):
@@ -39,6 +39,7 @@ def nitro_graph(start_id=0):
     return g
 
 def ether_graph(start_id=0):
+    # simple R-O-R' approximated as O plus a carbon to attach
     g = MoleculeGraph()
     g.add_atom(start_id, "O")
     g.add_atom(start_id + 1, "C")
@@ -50,7 +51,7 @@ GROUP_LIBRARY = [
         "name": "ester",
         "factory": ester_graph,
         "requirements": {"C": 1, "O": 2},
-        "weight": 0.45
+        "weight": 0.45 # Puoi mantenere un peso/probabilità per la selezione
     },
     {
         "name": "amide",
@@ -73,13 +74,13 @@ GROUP_LIBRARY = [
     {
         "name": "nitro",
         "factory": nitro_graph,
-        "requirements": {"N": 1, "O": 2},
-        "weight": 0.15
+        "requirements": {"C": 1, "O": 1},
+        "weight": 0.22
     },
     {
         "name": "ether",
         "factory": ether_graph,
-        "requirements": {"N": 1, "O": 2},
-        "weight": 0.15
+        "requirements": {"C": 1, "O": 1},
+        "weight": 0.22
     },
 ]

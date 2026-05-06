@@ -1,17 +1,24 @@
 from collections import defaultdict, deque, Counter
 import random
 
+#-----------------------------------------------------------------Molecular Builder
+# -------------------------
+# Configurazione generale
+# -------------------------
 VALENCES = {"C": 4, "N": 3, "O": 2, "S": 2, "F": 1, "Cl": 1, "Br": 1, "I": 1}
 ALLOWED_ATOMS = set(VALENCES.keys())
-RNG = random.Random(42)
+RNG = random.Random(42)  # seed fisso per riproducibilità
 HETERO = {"O","N","S"}
 HALOGENS = {"Cl","Br","I","F"}
 
+# -------------------------
+# MoleculeGraph: grafo 2D con valenze
+# -------------------------
 class MoleculeGraph:
     def __init__(self):
-        self.adj = defaultdict(dict)
-        self.elements = {}
-        self.coords = {}
+        self.adj = defaultdict(dict)   # adj[a][b] = order
+        self.elements = {}            # idx -> element
+        self.coords = {}              # idx -> (x,y)
         self.valence_max = {}
         self.valence_rem = {}
 
@@ -20,7 +27,7 @@ class MoleculeGraph:
 
     def add_atom(self, idx, element, coords=(0.0, 0.0)):
         if element not in VALENCES:
-            raise ValueError(f"Not supported element: {element}")
+            raise ValueError(f"Elemento non supportato: {element}")
         self.elements[idx] = element
         self.coords[idx] = coords
         self.valence_max[idx] = VALENCES[element]
@@ -38,6 +45,7 @@ class MoleculeGraph:
             return False
         if self.valence_rem[a] < order or self.valence_rem[b] < order:
             return False
+        # controllo di chimica
         if not is_bond_allowed(self, a, b):
             return False
         if b in self.adj[a]:
@@ -108,12 +116,15 @@ def is_bond_allowed(g: MoleculeGraph, a: int, b: int) -> bool:
     ea = g.elements[a]
     eb = g.elements[b]
 
+    # Regola 1: no legame etero–etero (salvo se già nello stesso sintone costruito)
     if ea in HETERO and eb in HETERO:
         return False
 
+    # Regola 2: no etero–alogeno
     if (ea in HETERO and eb in HALOGENS) or (eb in HETERO and ea in HALOGENS):
         return False
 
+    # Regola 3: alogeni solo legati a C
     if ea in HALOGENS and eb != "C":
         return False
     if eb in HALOGENS and ea != "C":

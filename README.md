@@ -25,6 +25,16 @@ The program will now be installed.
 If the executable file does not run, check that you have selected the following in ‘Permissions’:
 * 'Allow executing file as program'
 
+## Generation modes
+1. **Hybrid — recommended**\
+   Combines the library-based engine with the image-conditioned from-scratch backend, then merges unique SMILES.
+
+2. **Library only**\
+   Uses the ImagiChem v7.1 library/core-based engine.
+
+3. **From-scratch only**\
+   Uses the integrated rule-based from-scratch v2.2 engine. The image profile controls ring count, aromatic/aliphatic balance, annulation/linker preference, and decoration patterns.
+
 ## Citation
 If you find ImagiChem useful in your own research please cite:
 
