@@ -38,5 +38,6 @@ If the executable file does not run, check that you have selected the following 
 ## Citation
 If you find ImagiChem useful in your own research please cite:
 
-**[Article approved title]**\
-[Reference]
+**ImagiChem: Hybrid Deterministic Image-Conditioned Generation of Chemically Valid and Drug-like Molecules from Artistic Inputs**\
+ACS Omega, 2026,
+DOI: https://doi.org/10.1021/acsomega.6c05429
