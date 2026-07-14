@@ -39,5 +39,5 @@ If the executable file does not run, check that you have selected the following 
 If you find ImagiChem useful in your own research please cite:
 
 **ImagiChem: Hybrid Deterministic Image-Conditioned Generation of Chemically Valid and Drug-like Molecules from Artistic Inputs**\
-Rocco Buccheri, and Antonio Rescifina
+Rocco Buccheri, and Antonio Rescifina\
 ACS Omega 2026, https://doi.org/10.1021/acsomega.6c05429
